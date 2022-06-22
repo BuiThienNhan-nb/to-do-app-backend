@@ -3,12 +3,14 @@ import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./database/mongoose.js";
+import http from "http";
 
 import router from "./routers/example.router.js";
 import userRouter from "./routers/user.router.js";
 import auth from "./middlewares/auth.middleware.js";
 
 const app = express();
+const server = http.createServer(app);
 dotenv.config();
 
 app.use(morgan("dev"));
@@ -25,6 +27,6 @@ app.use(router);
 app.use(auth, userRouter);
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App API listening at http://localhost:${port}`);
 });
