@@ -6,7 +6,7 @@ import connectDB from "./database/mongoose.js";
 import http from "http";
 
 import router from "./routers/example.router.js";
-import userRouter from "./routers/user.router.js";
+import authRouter from "./routers/auth.router.js";
 import auth from "./middlewares/auth.middleware.js";
 
 const app = express();
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 connectDB();
 
 app.use(router);
-app.use(auth, userRouter);
+app.use(authRouter);
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
