@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema(
           throw new Error("Password must not contain space");
       },
     },
+    token: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

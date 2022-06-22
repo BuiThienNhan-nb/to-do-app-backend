@@ -7,4 +7,6 @@ userRouter.post("/test-create-user", userController.testCreateUser);
 
 userRouter.post("/sign-in", userController.signIn);
 
+userRouter.post("/create-task", userController.createTask);
+
 export default userRouter;

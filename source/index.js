@@ -6,6 +6,7 @@ import connectDB from "./database/mongoose.js";
 
 import router from "./routers/example.router.js";
 import userRouter from "./routers/user.router.js";
+import auth from "./middlewares/auth.middleware.js";
 
 const app = express();
 dotenv.config();
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 connectDB();
 
 app.use(router);
-app.use(userRouter);
+app.use(auth, userRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
