@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 dotenv.config();
 
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 app.use(cors());
 
 // Setup middleware
