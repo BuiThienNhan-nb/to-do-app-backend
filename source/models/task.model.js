@@ -9,16 +9,24 @@ const taskSchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
-      default: "",
     },
     description: {
       type: String,
       required: true,
     },
-    timeCreated: {
+    deadline: {
       type: Date,
-      required: true,
       default: Date.now(),
+    },
+    priority: {
+      type: String,
+      required: true,
+      default: "Not necessary",
+    },
+    hasDone: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   { timestamps: true }

@@ -51,8 +51,4 @@ export const authController = {
       return res.json({ success: fail, message: err.message });
     }
   },
-
-  createTask: async function (req, res) {
-    console.log("createTask from private route");
-  },
 };

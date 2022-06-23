@@ -7,6 +7,7 @@ import http from "http";
 
 import router from "./routers/example.router.js";
 import authRouter from "./routers/auth.router.js";
+import taskRouter from "./routers/task.router.js";
 import auth from "./middlewares/auth.middleware.js";
 
 const app = express();
@@ -25,6 +26,7 @@ connectDB();
 
 app.use(router);
 app.use(authRouter);
+app.use(taskRouter);
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
