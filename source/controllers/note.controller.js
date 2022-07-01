@@ -17,7 +17,55 @@ export const noteController = {
       await note.save();
       return res.json(note);
     } catch (err) {
-      return res.json({ success: false, error: err.message });
+      return res.json({ success: false, message: err.message });
+    }
+  },
+
+  getNoteByUserId: async function (req, res) {
+    try {
+      const notes = await Note.find({ userId: req.body.userId }).exec();
+      res.json(notes);
+    } catch (err) {
+      return res.json({ success: false, message: err.message });
+    }
+  },
+
+  updateNote: async function (req, res) {
+    const noteId = req.params;
+    if (!mongoose.Types.ObjectId.isValid(noteId))
+      return res.json({ success: false, message: `No note with id: ${id}` });
+
+    const { title, description, deadline, priority, hasDone } = req.body;
+    try {
+      await Note.findByIdAndUpdate(
+        noteId,
+        {
+          $set: {
+            title: title,
+            description: description,
+            deadline: deadline,
+            priority: priority,
+            hasDone: hasDon,
+          },
+        },
+        { new: true }
+      );
+      return res.json({ success: true, message: `Update note successfully` });
+    } catch (err) {
+      return res.json({ success: false, message: err.message });
+    }
+  },
+
+  deleteNote: async function (req, res) {
+    const noteId = req.params;
+    if (!mongoose.Types.ObjectId.isValid(noteId))
+      return res.json({ success: false, message: `No note with id: ${id}` });
+
+    try {
+      await Note.findByIdAndRemove(noteId);
+      return res.json({ success: true, message: `Delete note successfully` });
+    } catch (err) {
+      return res.json({ success: false, message: err.message });
     }
   },
 };

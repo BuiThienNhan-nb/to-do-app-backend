@@ -27,7 +27,7 @@ export const authController = {
       await user.save();
       return res.json(user);
     } catch (err) {
-      return res.json({ success: false, error: err.message });
+      return res.json({ success: false, message: err.message });
     }
   },
 

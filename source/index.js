@@ -26,7 +26,7 @@ connectDB();
 
 app.use(router);
 app.use(authRouter);
-app.use(noteRouter);
+app.use(auth, noteRouter);
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
