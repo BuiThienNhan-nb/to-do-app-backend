@@ -1,9 +1,9 @@
-import Task from "../models/task.model.js";
+import Note from "../models/note.model.js";
 
-export const taskController = {
-  createTask: async function (req, res) {
-    // Create a new task model from the request
-    const task = Task({
+export const noteController = {
+  createNote: async function (req, res) {
+    // Create a new note model from the request
+    const note = Note({
       userId: req.body.userId,
       title: req.body.title,
       description: req.body.description,
@@ -12,10 +12,10 @@ export const taskController = {
       hasDone: req.body.hasDone,
     });
 
-    // Save the task model to the database
+    // Save the note model to the database
     try {
-      await task.save();
-      return res.json(task);
+      await note.save();
+      return res.json(note);
     } catch (err) {
       return res.json({ success: false, error: err.message });
     }

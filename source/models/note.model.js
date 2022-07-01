@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const taskSchema = mongoose.Schema(
+const noteSchema = mongoose.Schema(
   {
     userId: {
       type: String,
@@ -32,6 +32,6 @@ const taskSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Task = mongoose.model("Task", taskSchema);
+const Note = mongoose.model("Note", noteSchema);
 
-export default Task;
+export default Note;
