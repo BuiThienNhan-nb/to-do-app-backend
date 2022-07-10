@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const authController = {
-  testCreateUser: async function (req, res) {
+  signUp: async function (req, res) {
     const { name, email, password } = req.body;
 
     // Check if the user already exists
