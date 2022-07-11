@@ -22,8 +22,14 @@ export const noteController = {
   },
 
   getNoteByUserId: async function (req, res) {
+    const userId = req.params;
+    if (!mongoose.Types.ObjectId.isValid(userId))
+      return res.json({
+        success: false,
+        message: `No note with id: ${userId}`,
+      });
     try {
-      const notes = await Note.find({ userId: req.body.userId }).exec();
+      const notes = await Note.find({ userId: req.params }).exec();
       res.json(notes);
     } catch (err) {
       return res.json({ success: false, message: err.message });
@@ -33,7 +39,10 @@ export const noteController = {
   updateNote: async function (req, res) {
     const noteId = req.params;
     if (!mongoose.Types.ObjectId.isValid(noteId))
-      return res.json({ success: false, message: `No note with id: ${id}` });
+      return res.json({
+        success: false,
+        message: `No note with id: ${noteId}`,
+      });
 
     const { title, description, deadline, priority, hasDone } = req.body;
     try {
@@ -45,7 +54,7 @@ export const noteController = {
             description: description,
             deadline: deadline,
             priority: priority,
-            hasDone: hasDon,
+            hasDone: hasDone,
           },
         },
         { new: true }
