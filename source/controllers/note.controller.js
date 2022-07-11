@@ -15,7 +15,7 @@ export const noteController = {
     // Save the note model to the database
     try {
       await note.save();
-      return res.json(note);
+      return res.json({ success: true, note: note });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }
