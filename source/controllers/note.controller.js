@@ -30,7 +30,7 @@ export const noteController = {
       });
     try {
       const notes = await Note.find({ userId: req.params }).exec();
-      res.json(notes);
+      res.json({ success: true, notes: notes });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }
