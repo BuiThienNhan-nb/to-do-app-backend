@@ -24,7 +24,7 @@ export const authController = {
         process.env.JWT_SECRET_KEY
       );
       user.token = token;
-      await user.save();
+      await user.save().then((savedUser) => (user.id = savedUser._id));
       return res.json(user);
     } catch (err) {
       return res.json({ success: false, message: err.message });

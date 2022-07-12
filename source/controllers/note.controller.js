@@ -1,4 +1,5 @@
 import Note from "../models/note.model.js";
+import mongoose from "mongoose";
 
 export const noteController = {
   addNote: async function (req, res) {
@@ -14,7 +15,7 @@ export const noteController = {
 
     // Save the note model to the database
     try {
-      await note.save();
+      await note.save().then((savedNote) => (note.id = savedNote.id));
       return res.json({ success: true, note: note });
     } catch (err) {
       return res.json({ success: false, message: err.message });
@@ -22,14 +23,14 @@ export const noteController = {
   },
 
   getNoteByUserId: async function (req, res) {
-    const userId = req.params;
+    const userId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(userId))
       return res.json({
         success: false,
         message: `No user with id: ${userId}`,
       });
     try {
-      const notes = await Note.find({ userId: req.params }).exec();
+      const notes = await Note.find({ userId: userId }).exec();
       res.json({ success: true, notes: notes });
     } catch (err) {
       return res.json({ success: false, message: err.message });
@@ -37,7 +38,7 @@ export const noteController = {
   },
 
   updateNote: async function (req, res) {
-    const noteId = req.params;
+    const noteId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(noteId))
       return res.json({
         success: false,
@@ -66,9 +67,12 @@ export const noteController = {
   },
 
   deleteNote: async function (req, res) {
-    const noteId = req.params;
+    const noteId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(noteId))
-      return res.json({ success: false, message: `No note with id: ${id}` });
+      return res.json({
+        success: false,
+        message: `No note with id: ${noteId}`,
+      });
 
     try {
       await Note.findByIdAndRemove(noteId);
