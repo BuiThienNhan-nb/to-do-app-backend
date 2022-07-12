@@ -1,7 +1,7 @@
 import Note from "../models/note.model.js";
 
 export const noteController = {
-  createNote: async function (req, res) {
+  addNote: async function (req, res) {
     // Create a new note model from the request
     const note = Note({
       userId: req.body.userId,
@@ -26,7 +26,7 @@ export const noteController = {
     if (!mongoose.Types.ObjectId.isValid(userId))
       return res.json({
         success: false,
-        message: `No note with id: ${userId}`,
+        message: `No user with id: ${userId}`,
       });
     try {
       const notes = await Note.find({ userId: req.params }).exec();
